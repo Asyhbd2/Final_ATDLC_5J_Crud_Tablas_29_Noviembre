@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row"><!-- la fila -->
+<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"><!-- columna izquierda -->
+<h1>Gestión de Inventarios</h1>
+<div class="card"><!-- tarjeta -->
+  <div class="card-body">
+    <form action="/registrarInventario/" method="POST">{% csrf_token %}<!-- formulario -->
+
+      <div class="form-group">
+        <input type="number" id="numid" name="numid" class="form-control"
+          placeholder="ID del Inventario" maxlength="6" required>
+        </div>
+
+        <div class="form-group py-3">
+          <input type="number" id="productoid" name="productoid" class="form-control"
+          placeholder="ID del Producto" required>
+        </div>
+        
+        <div class="form-group py-3">
+          <input type="number" id="cantidadinicial" name="cantidadinicial" class="form-control"
+          placeholder="Cantidad Inicial" required>
+        </div>
+
+        <div class="form-group py-3">
+          <input type="number" id="cantidadactual" name="cantidadactual" class="form-control"
+          placeholder="Cantidad Actual" required>
+        </div>
+
+        <div class="form-group py-3">
+          <input type="date" id="fechaactualizacion" name="fechaactualizacion" class="form-control"
+          placeholder="Fecha de Actualización" required>
+        </div>
+
+        <div class="form-group py-3">
+          <input type="text" id="ubicacion" name="ubicacion" class="form-control"
+          placeholder="Ubicación" maxlength="100" required>
+        </div>
+
+        <div class="form-group py-3">
+          <textarea id="notas" name="notas" class="form-control"
+          placeholder="Notas" required></textarea>
+        </div>
+        
+      <div class="form-group py-2">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form><!-- formulario -->
+  </div>
+</div><!-- tarjeta -->
+</div><!-- columna izquierda -->
+<div class="col-sm-12 col-md-4 col-lg-4 col-xl-6"><!-- columna derecha -->
+<h1>Listado de Inventarios</h1>    
+<img class="w-50" src="{% static 'img/fondo7.jpg' %}" alt="inventarios" width="400" height="400">
+<br>
+<br>
+<div class="table-responsive"><!-- tabla responsiva -->
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID Inventario</th>
+            <th scope="col">ID Producto</th>
+            <th scope="col">Cantidad Inicial</th>
+            <th scope="col">Cantidad Actual</th>
+            <th scope="col">Fecha de Actualización</th>
+            <th scope="col">Ubicación</th>
+            <th scope="col">Notas</th>
+            <th colspan="2">Botones</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for m in misinventarios %}
+            <tr>
+                <td>{{m.inventarioid}}</td>
+                <td>{{m.productoid.productoid}}</td>
+                <td>{{m.cantidadinicial}}</td>
+                <td>{{m.cantidadactual}}</td>
+                <td>{{m.fechaactualizacion}}</td>
+                <td>{{m.ubicacion}}</td>
+                <td>{{m.notas}}</td>
+                <td><a href="seleccionarInventario/{{m.inventarioid}}" class="btn btn-info">Editar</a></td>
+                <td><a href="borrarInventario/{{m.inventarioid}}" class="btn btn-danger">Borrar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+</div><!-- tabla responsiva -->
+</div><!-- columna derecha -->
+</div><!-- a fila -->
+{% endblock %}
