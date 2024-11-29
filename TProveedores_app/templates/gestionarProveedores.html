@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% block cuerpo %}
+<div class="row">
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+        <h1>Gestión de Proveedores</h1>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarProveedor/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="number" id="proveedorid" name="proveedorid" class="form-control"
+                               placeholder="ID del Proveedor" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="nombre" name="nombre" class="form-control"
+                               placeholder="Nombre del Proveedor" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="telefono" name="telefono" class="form-control"
+                               placeholder="Teléfono" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="email" id="correo" name="correo" class="form-control"
+                               placeholder="Correo Electrónico" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="direccion" name="direccion" class="form-control"
+                               placeholder="Dirección" required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="date" id="fecharegistro" name="fecharegistro" class="form-control"
+                               required>
+                    </div>
+                    <div class="form-group py-3">
+                        <input type="text" id="productosuministro" name="productosuministro" class="form-control"
+                               placeholder="Producto Suministrado" required>
+                    </div>
+                    <div class="form-group py-2">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-6">
+        <h1>Listado de Proveedores</h1>
+        <img class="w-50" src="{% static 'img/fondo6.jpg' %}" alt="productos" width="400" height="400">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID Proveedor</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Correo</th>
+                    <th>Dirección</th>
+                    <th>Fecha Registro</th>
+                    <th>Producto</th>
+                    <th colspan="2">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for p in misproveedores %}
+                    <tr>
+                        <td>{{ p.proveedorid }}</td>
+                        <td>{{ p.nombre }}</td>
+                        <td>{{ p.telefono }}</td>
+                        <td>{{ p.correo }}</td>
+                        <td>{{ p.direccion }}</td>
+                        <td>{{ p.fecharegistro }}</td>
+                        <td>{{ p.productosuministro }}</td>
+                        <td><a href="seleccionarProveedor/{{ p.proveedorid }}" class="btn btn-info">Editar</a></td>
+                        <td><a href="borrarProveedor/{{ p.proveedorid }}" class="btn btn-danger">Borrar</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

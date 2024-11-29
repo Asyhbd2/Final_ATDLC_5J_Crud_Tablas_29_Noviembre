@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block cuerpo %}
+<div class="row">
+<div class="col-md-4 offset-md-4">
+<!-- la targeta card -->
+<div class="card"><!--tarjeta-->
+    <div class="card-body">
+      <form action="/editarProducto/" method="POST">{% csrf_token %}<!--formulario-->
+            <div class="form-group">
+                <input type="number" id="numid" name="numid" class="form-control"
+                  value = {{losproductos.productoid}} maxlength="6" readonly required>
+                </div>
+        
+                <div class="form-group py-3">
+                  <input type="text" id="txtnombre" name="txtnombre" class="form-control"
+                  value = {{losproductos.nombre}} maxlength="100" required>
+                </div>
+                
+                <div class="form-group py-3">
+                  <textarea id="txtdescripcion" name="txtdescripcion" class="form-control" required>{{losproductos.descripcion}}</textarea>
+                </div>
+                
+                <div class="form-group py-3">
+                  <input type="number" step="0.01" id="decimalprecio" name="decimalprecio" class="form-control"
+                  value = {{losproductos.precio}} maxlength="7" required>
+                </div>
+        
+                <div class="form-group py-3">
+                  <input type="text" id="txtcategoria" name="txtcategoria" class="form-control"
+                  value = {{losproductos.categoria}} maxlength="50" required>
+                </div>
+        
+                <div class="form-group py-3">
+                    <input type="number" id="intstock" name="intstock" class="form-control"
+                    value = {{losproductos.stock}} maxlength="4" required>
+                </div>
+        
+                <div class="form-group py-3">
+                  <input type="date" id="dateingreso" name="dateingreso" class="form-control"
+                  value = {{losproductos.fechaingreso|date:'Y-m-d'}} required>
+                </div>
+                
+        <div class="form-group py-2">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form><!--formulario-->
+    </div>
+  </div><!--tarjeta-->
+<!-- la targeta card -->
+</div><!-- la columna -->
+</div><!-- la fila -->
+{% endblock %}
